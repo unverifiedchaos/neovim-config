@@ -53,6 +53,6 @@ my neovim configuration
 ~
 ```
 
-#Activate my config using 
+# Activate my config using 
 :source %
 :PlugInstall
