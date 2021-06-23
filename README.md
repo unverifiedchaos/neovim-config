@@ -5,7 +5,7 @@ my neovim configuration
 ```
 set runtimepath+=~/.vim_runtime
 set number
-set background = "dark"
+set background=dark
 set shiftwidth=2
 set autoindent
 set smartindent
@@ -13,13 +13,15 @@ set nowrap
 " Set internal encoding of vim, not needed on neovim, since coc.nvim using some
 " unicode characters in the file autoload/float.vim
 set encoding=utf-8
-
+set clipboard+=unnamedplus
 " TextEdit might fail if hidden is not set.
 set hidden
 
 " Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
+
+set mouse=a
 
 " Give more space for displaying messages.
 set cmdheight=2
@@ -39,6 +41,8 @@ if has("nvim-0.5.0") || has("patch-8.1.1564")
 else
   set signcolumn=yes
 endif
+
+
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -64,7 +68,7 @@ endif
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -93,6 +97,7 @@ endfunction
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 autocmd Filetype css setlocal tabstop=1
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
@@ -168,11 +173,11 @@ let g:closetag_emptyTags_caseSensitive = 1
 " Disables auto-close if not in a "valid" region (based on filetype)
 "
 let g:closetag_regions = {
-    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
-    \ 'javascript.jsx': 'jsxRegion',
-    \ 'typescriptreact': 'jsxRegion,tsxRegion',
-    \ 'javascriptreact': 'jsxRegion',
-    \ }
+      \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+      \ 'javascript.jsx': 'jsxRegion',
+      \ 'typescriptreact': 'jsxRegion,tsxRegion',
+      \ 'javascriptreact': 'jsxRegion',
+      \ }
 
 " Shortcut for closing tags, default is '>'
 "
@@ -220,7 +225,7 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
-
+:tnoremap <Esc> <C-\><C-n>
 nmap <F6> :NERDTreeToggle<CR>
 nmap q :q!<CR>
 nmap w :w!<CR>
@@ -229,16 +234,30 @@ nmap t <C-w><C-w><CR>
 nmap r :source ~/.vimrc<CR>
 nmap v :vsp<CR>
 nmap s :sp<CR>
-
+map <F8> :w <CR> :!gcc % && ./a.out <CR>
+let NERDTreeMinimalUI=1
+let NERDTreeDirArrows=1
+let g:rust_clip_command = 'xclip -selection clipboard'
 let g:snipMate={ 'snippet_version' : 1 }
 let g:onedark_hide_endofbuffer=1
 let g:onedark_termcolors=256
 let g:onedark_terminal_italics=1
-let g:NERDTreeWinPos = "left"
+let NERDTreeQuitOnOpen = 1
+let g:NERDTreeWinPos="left"
 let g:lightline={
-  \ 'colorscheme': 'onedark',
-  \ }
-
+      \ 'colorscheme': 'onedark',
+      \ }
+let g:clipboard = {
+      \   'name': 'myClipboard',
+      \   'copy': {
+	\      '+': {lines, regtype -> extend(g:, {'foo': [lines, regtype]}) },
+	\      '*': {lines, regtype -> extend(g:, {'foo': [lines, regtype]}) },
+	\    },
+	\   'paste': {
+	  \      '+': {-> get(g:, 'foo', [])},
+	  \      '*': {-> get(g:, 'foo', [])},
+	  \   },
+	  \ }
 let g:airline_theme='onedark'
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.php,*.jsx"
 
@@ -248,6 +267,8 @@ source ~/.vim_runtime/vimrcs/extended.vim
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
+Plug 'scrooloose/nerdtree'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'alvan/vim-closetag'
 Plug 'SirVer/ultisnips'
@@ -257,24 +278,27 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'pangloss/vim-javascript'
 Plug 'sbdchd/neoformat'
 Plug 'maxmellon/vim-jsx-pretty'
+Plug 'christoomey/vim-system-copy'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'luochen1990/rainbow'
 Plug 'HenryNewcomer/vim-theme-papaya'
-Plug 'scrooloose/nerdtree'
 Plug 'junegunn/vim-easy-align'
 Plug 'joshdick/onedark.vim'
+Plug 'rust-lang/rust.vim'
+Plug 'morhetz/gruvbox'
 
 call plug#end()
 
 syntax on
-colorscheme onedark
+set t_Co=256
+set cursorline
+colorscheme gruvbox
 
 try
-source ~/.vim_runtime/my_configs.vim
+  source ~/.vim_runtime/my_configs.vim
 catch
 endtry
-
 
 
 
