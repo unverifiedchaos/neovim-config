@@ -3,10 +3,13 @@ my neovim configuration
 
 
 ```
+set listchars=tab:\|\ 
+set list
+set encoding=UTF-8
 set runtimepath+=~/.vim_runtime
 set number
 set background=dark
-set shiftwidth=2
+set shiftwidth=4
 set autoindent
 set smartindent
 set nowrap
@@ -17,6 +20,9 @@ set clipboard+=unnamedplus
 " TextEdit might fail if hidden is not set.
 set hidden
 
+set runtimepath^=~/.vim runtimepath+=~/.vim/after
+let &packpath = &runtimepath
+source ~/.vimrc
 " Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
@@ -163,6 +169,8 @@ let g:closetag_filetypes = 'html,xhtml,phtml'
 " This will make the list of non-closing tags self-closing in the specified files.
 "
 let g:closetag_xhtml_filetypes = 'xhtml,jsx'
+let g:airline#extensions#tabline#enabled = 1
+
 
 " integer value [0|1]
 " This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
@@ -250,14 +258,14 @@ let g:lightline={
 let g:clipboard = {
       \   'name': 'myClipboard',
       \   'copy': {
-	\      '+': {lines, regtype -> extend(g:, {'foo': [lines, regtype]}) },
-	\      '*': {lines, regtype -> extend(g:, {'foo': [lines, regtype]}) },
-	\    },
-	\   'paste': {
-	  \      '+': {-> get(g:, 'foo', [])},
-	  \      '*': {-> get(g:, 'foo', [])},
-	  \   },
-	  \ }
+      \      '+': {lines, regtype -> extend(g:, {'foo': [lines, regtype]}) },
+      \      '*': {lines, regtype -> extend(g:, {'foo': [lines, regtype]}) },
+      \    },
+      \   'paste': {
+      \      '+': {-> get(g:, 'foo', [])},
+      \      '*': {-> get(g:, 'foo', [])},
+      \   },
+      \ }
 let g:airline_theme='onedark'
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.php,*.jsx"
 
@@ -285,22 +293,25 @@ Plug 'luochen1990/rainbow'
 Plug 'HenryNewcomer/vim-theme-papaya'
 Plug 'junegunn/vim-easy-align'
 Plug 'joshdick/onedark.vim'
+Plug 'frazrepo/vim-rainbow'
 Plug 'rust-lang/rust.vim'
+Plug 'pacokwon/onedarkhc.vim'
 Plug 'morhetz/gruvbox'
+
 
 call plug#end()
 
 syntax on
 set t_Co=256
 set cursorline
-colorscheme gruvbox
+colorscheme onehalfdark
+let g:airline_theme='onehalfdark'
+let g:rainbow_active = 1
 
 try
   source ~/.vim_runtime/my_configs.vim
 catch
 endtry
-
-
 
 ```
 
