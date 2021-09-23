@@ -4,6 +4,7 @@ my neovim configuration
 
 ```
 set listchars=tab:\|\ 
+set guicursor=a:blinkwait5-blinkon5-blinkoff5
 set list
 set encoding=UTF-8
 set runtimepath+=~/.vim_runtime
