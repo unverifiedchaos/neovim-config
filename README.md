@@ -5,6 +5,7 @@ my neovim configuration
 ```
 set listchars=tab:\|\ 
 set guicursor=a:blinkwait5-blinkon5-blinkoff5
+let g:gruvbox_contrast_dark = 'hard'
 set list
 set encoding=UTF-8
 set runtimepath+=~/.vim_runtime
@@ -254,7 +255,7 @@ let g:onedark_terminal_italics=1
 let NERDTreeQuitOnOpen = 1
 let g:NERDTreeWinPos="left"
 let g:lightline={
-      \ 'colorscheme': 'onedark',
+      \ 'colorscheme': 'gruvbox',
       \ }
 let g:clipboard = {
       \   'name': 'myClipboard',
@@ -267,7 +268,7 @@ let g:clipboard = {
       \      '*': {-> get(g:, 'foo', [])},
       \   },
       \ }
-let g:airline_theme='onedark'
+let g:airline_theme='gruvbox'
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.php,*.jsx"
 
 source ~/.vim_runtime/vimrcs/filetypes.vim
@@ -275,7 +276,10 @@ source ~/.vim_runtime/vimrcs/plugins_config.vim
 source ~/.vim_runtime/vimrcs/extended.vim
 
 call plug#begin('~/.vim/plugged')
-
+Plug 'Yggdroot/indentLine'
+Plug 'sheerun/vim-polyglot'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'scrooloose/nerdtree'
 Plug 'christoomey/vim-tmux-navigator'
@@ -298,15 +302,17 @@ Plug 'frazrepo/vim-rainbow'
 Plug 'rust-lang/rust.vim'
 Plug 'pacokwon/onedarkhc.vim'
 Plug 'morhetz/gruvbox'
-
+Plug 'bfrg/vim-cpp-modern'
 
 call plug#end()
 
+filetype plugin on
 syntax on
 set t_Co=256
 set cursorline
-colorscheme onehalfdark
-let g:airline_theme='onehalfdark'
+colorscheme gruvbox
+let g:airline_theme='gruvbox'
+set termguicolors
 let g:rainbow_active = 1
 
 try
