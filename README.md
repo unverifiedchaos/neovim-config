@@ -4,14 +4,16 @@ my neovim configuration
 
 ```
 set listchars=tab:\|\ 
-set guicursor=a:blinkwait5-blinkon5-blinkoff5
-let g:gruvbox_contrast_dark = 'hard'
+let g:onedark_contrast_dark = 'hard'
+
 set list
 set encoding=UTF-8
+set tabstop=4
+set shiftwidth=4
+set expandtab
 set runtimepath+=~/.vim_runtime
 set number
 set background=dark
-set shiftwidth=4
 set autoindent
 set smartindent
 set nowrap
@@ -104,7 +106,6 @@ endfunction
 
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
-autocmd Filetype css setlocal tabstop=1
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
@@ -132,7 +133,7 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Map function and class text objects
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+" NOTE: Requires 'textDcument.documentSymbol' support from the language server.
 xmap if <Plug>(coc-funcobj-i)
 omap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
@@ -255,7 +256,7 @@ let g:onedark_terminal_italics=1
 let NERDTreeQuitOnOpen = 1
 let g:NERDTreeWinPos="left"
 let g:lightline={
-      \ 'colorscheme': 'gruvbox',
+      \ 'colorscheme': 'onedark',
       \ }
 let g:clipboard = {
       \   'name': 'myClipboard',
@@ -268,7 +269,7 @@ let g:clipboard = {
       \      '*': {-> get(g:, 'foo', [])},
       \   },
       \ }
-let g:airline_theme='gruvbox'
+let g:airline_theme='onedark'
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.php,*.jsx"
 
 source ~/.vim_runtime/vimrcs/filetypes.vim
@@ -294,6 +295,7 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'christoomey/vim-system-copy'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'tpope/vim-surround' 
 Plug 'luochen1990/rainbow'
 Plug 'HenryNewcomer/vim-theme-papaya'
 Plug 'junegunn/vim-easy-align'
@@ -309,17 +311,17 @@ call plug#end()
 filetype plugin on
 syntax on
 set t_Co=256
-set cursorline
-colorscheme gruvbox
-let g:airline_theme='gruvbox'
-set termguicolors
+colorscheme onedark
+"colorscheme default
+"set notermguicolors
+"highlight Search ctermfg=0
+let g:airline_theme='onedark'
 let g:rainbow_active = 1
 
 try
   source ~/.vim_runtime/my_configs.vim
 catch
 endtry
-
 ```
 
 # Activate my config using 
